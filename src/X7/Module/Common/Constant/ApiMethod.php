@@ -15,4 +15,9 @@ class ApiMethod extends AbstractConstant
      * IP白名单查询
      */
     const IP_WHITELIST_QUERY = "common.ipWhiteListQuery";
+
+    /**
+     * 角色信息上报
+     */
+    const ROLE_REPORT = "common.roleReport";
 }
