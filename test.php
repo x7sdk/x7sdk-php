@@ -7,6 +7,7 @@ use X7\Constant\GameType;
 use X7\Constant\OsType;
 use X7\Demo\IpWhiteListQueryDemo;
 use X7\Demo\RoleQueryDemo;
+use X7\Demo\RoleReportDemo;
 use X7\Demo\X7DetectionDemo;
 use X7\Demo\X7mallDemo;
 
@@ -40,3 +41,7 @@ $demo->sendMallEntryRequest();
 // IP 白名单查询
 // $demo = new IpWhiteListQueryDemo($client);
 // $demo->sendIpWhiteListQueryRequest();
+
+// 角色信息上报
+// $demo = new RoleReportDemo($client);
+// $demo->sendRoleReportRequest();
