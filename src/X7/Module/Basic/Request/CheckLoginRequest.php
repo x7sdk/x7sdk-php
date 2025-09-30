@@ -16,7 +16,7 @@ class CheckLoginRequest implements BasicRequestInterface
 {
     protected $appkey;
 
-    protected $requestUrl = "https://api.x7s.com/user/check_v4_login";
+    protected $requestUrl = "https://api.x7sy.com/user/check_v4_login";
 
     public $tokenkey;
 

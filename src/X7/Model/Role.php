@@ -70,5 +70,19 @@ class Role extends Model
      * @var float
      */
     public $roleRechargeAmount = 0.00;
+    
+    /**
+     * 角色所属公会
+     * 
+     * @var string
+     */
+    public $roleGuild = '';
 
+    protected static $optionalFields = [
+        'roleLevel',
+        'roleCE',
+        'roleStage',
+        'roleRechargeAmount',
+        'roleGuild'
+    ];
 }

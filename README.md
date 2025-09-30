@@ -29,6 +29,7 @@ use X7\Client;
 use X7\Constant\GameType;
 use X7\Constant\OsType;
 use X7\Demo\RoleQueryDemo;
+use X7\Demo\RoleReportDemo;
 use X7\Demo\X7DetectionDemo;
 use X7\Demo\X7mallDemo;
 
@@ -39,6 +40,7 @@ $x7PublicKey = "";
 $gameType = GameType::CLIENT;
 // $osType = OsType::ANDROID;
 $osType = "";
+$tokenkey = "";
 
 
 $client = new Client($appkey, $gameRsaPrivateKey, $x7PublicKey, $gameType, $osType);
@@ -57,5 +59,15 @@ $demo->sendMallEntryRequest();
 // 角色查询V2
 // $demo = new RoleQueryDemo($client);
 // $demo->incomingRequest();
+
+
+$basicDemo = new BasicClientDemo;
+//验证用户信息
+$basicDemo->sendCheckLoginRequest($appkey, $tokenkey);
+
+
+// 角色信息上报
+// $demo = new RoleReportDemo($client);
+// $demo->sendRoleReportRequest();
 ```
 
