@@ -42,6 +42,6 @@ $demo->sendMallEntryRequest();
 // $demo = new IpWhiteListQueryDemo($client);
 // $demo->sendIpWhiteListQueryRequest();
 
-// 角色上报
+// 角色信息上报
 // $demo = new RoleReportDemo($client);
 // $demo->sendRoleReportRequest();
