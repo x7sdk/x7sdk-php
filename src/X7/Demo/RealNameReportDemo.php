@@ -5,8 +5,11 @@ namespace X7\Demo;
 use Exception;
 use X7\Client;
 use X7\Exception\ServerResponseException;
+use X7\Handler\ArrayParamHandler;
 use X7\Model\RealNameCollection;
 use X7\Model\RealNameReportData;
+use X7\Module\Common\Request\RealNameReportRequest;
+use X7\Module\Common\Response\RealNameReportResponse;
 use X7\Utils\Signature;
 
 /**
@@ -25,57 +28,19 @@ class RealNameReportDemo
         $this->client = $client;
     }
 
-    public function realNameCollectionDecrypt()
+    public function getUserRealNameInfo()
     {
         try {
-            // 创建实名认证上报数据对象
-            $reportData = new RealNameReportData();
+            //小7提供的实名上报数据（测试数据）
+            $realNameReportRequest = RealNameReportRequest::make(new ArrayParamHandler([
+                "collections" => "eLIR9mY4oH9Wo+E8TR5RicRdj+uz1pR4axwanrbmDFuvHhvugCFSVjMEMX1Qf4nYpJpCfSX6B4+qccKIsCDFhbUOtsH11oOP7y+WZ2KXrwKK0EwuuQnhOAq5CwEsqmX2BICnZE9xLJn+kB0hnGypDfuxV/gZKubgamKNjQ/rDnWbB5z/436dwcBK6w2yBo+Sg2CmG/wJVsYyv9sRm06iD6+iy6crg6JCI5y1QRLxCX/LAZnWEyGFA+JJYIyDH7D1lOeE93Fcv9q3a2SSG3uHKeOg7C3rC8C2lZqmMLco1bCF72xRJgbWZkMUWdRo1j0xqy3/2XL0W3KZsZ2PCyHFJTm8BrN6kH85RqFWzICY3HylIQhIL6A6Zu+/4nnVWkZJHbO9WeNEVMJKV8i4h2SYMfTgM48bgnc7zIuOB8GPc4sOt5bCN6FAINv2W7sRyUXDchSiwu7Ve1Pr69iCKR0L8WI2v4UYJUp1FMfNlStHbl4Y/J91wwW1VylfgWLvZ+MwG8nyIbhRrVcHWuWPbgiBv47EawaNxd7HJoI5VlkKjSR9rvhftY2RvwMsE7Y0DfWCvy/zowOzcsAJmxZB7antcIpWO3sBRFA3ASmldU98GIbJz2KonE+HqLtk4Uip3bXUbobvtklPRpCCcLEFASX3bJsCq1Ls2Wokiqy+22QM4Cs="
+            ]));
+
+            //厂商进行数据解密
+            $realNameReportResponse = new RealNameReportResponse();
+            $realNameReportResponse->getRealNameInfo($realNameReportRequest, $this->client);
             
-            // 添加上报数据项
-            $collection1 = RealNameCollection::make([
-                "no" => 1, //条目编码
-                "si" => "2387337ba1e0b0249ba90f55b2ba2521", //游戏内部会话标识
-                "bt" => 0, //游戏用户行为类型【0：下线；1：上线】
-                "ot" => 1617079205, //行为发生时间戳，单位秒
-                "ct" => 0, //用户行为数据上报类型【0：已认证通过用户；2：游客用户】
-                "di" => "cf79ae6addba60ad018347359bd144d2", //游客模式设备标识，由游戏运营单位生成，游客用户下必填
-                "pi" => "1fffbjzos82bs9cnyj1dna7d6d29zg4esnh99u" //已通过实名认证用户的唯一标识，已认证通过用户必填
-            ]);
-            
-            $collection2 = RealNameCollection::make([
-                "no" => 2,
-                "si" => "2387337ba1e0b0249ba90f55b2ba2521",
-                "bt" => 1,
-                "ot" => 1617080905,
-                "ct" => 0,
-                "di" => "cf79ae6addba60ad018347359bd144d2",
-                "pi" => "1fffbjzos82bs9cnyj1dna7d6d29zg4esnh99u"
-            ]);
-            
-            $reportData->addCollection($collection1);
-            $reportData->addCollection($collection2);
-
-            //将发送数据转化成json格式
-            $testData = json_encode($reportData->toArray(), JSON_UNESCAPED_UNICODE);
-
-            //使用Client中的私钥进行数据加密
-            $privateKey = $this->client->getGameRsaPrivateKey();
-
-            //小7进行数据加密（私钥加密）
-            $encrypted = Signature::encrypt($testData, $privateKey);
-
-            //使用Client中的公钥进行数据解密
-            $publicKey = $this->client->getX7PublicKey();
-
-            //厂商进行数据解密（公钥解密）
-            $decrypted = Signature::decrypt($encrypted, $publicKey);
-
-            //将解密后的数据转化为数组的形式
-            $decrypted = json_decode($decrypted, true);
-
-            //厂商使用小7上报的数据
-            print_r($decrypted);
-            
+            print_r($realNameReportResponse->collections);
         } catch (Exception $e) {
             // 异常处理
             echo "实名认证数据处理失败: " . $e->getMessage() . "\n";

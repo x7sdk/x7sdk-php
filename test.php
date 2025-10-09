@@ -48,4 +48,4 @@ $client = new Client($appkey, $gameRsaPrivateKey, $x7PublicKey, $gameType, $osTy
 
 // 实名上报数据解密
 $demo = new RealNameReportDemo($client);
-$demo->realNameCollectionDecrypt();
+$demo->getUserRealNameInfo();

@@ -69,5 +69,9 @@ $basicDemo->sendCheckLoginRequest($appkey, $tokenkey);
 // 角色信息上报
 // $demo = new RoleReportDemo($client);
 // $demo->sendRoleReportRequest();
+
+// 用户实名上报信息验签解析
+$demo = new RealNameDemo($client);
+$demo->getUserRealNameInfo();
 ```
 
