@@ -5,7 +5,6 @@ namespace X7\Module\Common\Response;
 use Exception;
 use RuntimeException;
 use X7\Client;
-use X7\Model\Role;
 use X7\Module\Common\Constant\ApiMethod;
 use X7\Module\Common\Request\RealNameReportRequest;
 use X7\Response\CommonResponse;

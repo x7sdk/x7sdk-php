@@ -4,13 +4,9 @@ namespace X7\Demo;
 
 use Exception;
 use X7\Client;
-use X7\Exception\ServerResponseException;
 use X7\Handler\ArrayParamHandler;
-use X7\Model\RealNameCollection;
-use X7\Model\RealNameReportData;
 use X7\Module\Common\Request\RealNameReportRequest;
 use X7\Module\Common\Response\RealNameReportResponse;
-use X7\Utils\Signature;
 
 /**
  * 解密实名上报demo

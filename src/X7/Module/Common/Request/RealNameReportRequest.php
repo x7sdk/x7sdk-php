@@ -2,7 +2,6 @@
 
 namespace X7\Module\Common\Request;
 
-use RuntimeException;
 use X7\Handler\ParamHandlerInterface;
 use X7\Module\Common\Constant\ApiMethod;
 use X7\Request\RequestInterface;
