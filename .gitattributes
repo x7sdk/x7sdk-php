@@ -1,0 +1,5 @@
+# 导出时忽略的文件和目录
+.github/        export-ignore
+phpunit.xml     export-ignore
+.gitignore      export-ignore
+.devcontainer/   export-ignore
