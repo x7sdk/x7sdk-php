@@ -58,6 +58,16 @@ class GamePay extends Model
      */
     public $subject = "";
 
+    /**
+     * @var string
+     */
+    public $game_currency = "";
+
+    /**
+     * @var string
+     */
+    public $game_access_version = "";
+
 
     public function setGameOrderId($gameOrderId)
     {
@@ -119,12 +129,35 @@ class GamePay extends Model
         return $this;
     }
 
+    public function setGameCurrency($gameCurrency)
+    {
+        $this->game_currency = (string)$gameCurrency;
+        return $this;
+    }
+    
+    public function setGameAccessVersion($gameAccessVersion)
+    {
+        $this->game_access_version = (string)$gameAccessVersion;
+        return $this;
+    }
 
     public function done($x7PublicKey, $signField = [])
     {
         if (empty($signField) || !is_array($signField)) {
             //默认需要签名的字段
-            $signField = ["game_area","game_orderid","game_price","subject","game_guid"];
+            $signField = [
+                "extends_info_data",
+                "game_area",
+                "game_level",
+                "game_guid",
+                "game_orderid",
+                'game_price', 
+                'game_role_id', 
+                'game_role_name', 
+                'notify_id',
+                'subject',
+                'game_access_version'
+            ];
         }
 
         if (!ParamTool::isValidPublicKey($x7PublicKey)) {
@@ -132,6 +165,10 @@ class GamePay extends Model
         }
 
         $queryArr = $this->toArray();
+
+        if (version_compare($queryArr['game_access_version'], '7.98') >= 0) {
+            $signField[] = 'game_currency';
+        }
         $signArr = [];
         foreach ($queryArr as $key => $value) {
             if (in_array($key, $signField)) {
@@ -139,7 +176,7 @@ class GamePay extends Model
             }
         }
         ksort($signArr);
-        $signStr = ParamTool::buildQueryString($signArr);
+        $signStr = ParamTool::buildQueryString($signArr, false);
         $queryArr['game_sign'] = md5($signStr . $x7PublicKey);
         return $queryArr;
     }

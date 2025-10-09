@@ -67,18 +67,26 @@ class BasicClientDemo
     }
 
 
+    /**
+     * 支付下单参数
+     *
+     * @param [type] $x7PublicKey
+     * @return void
+     */
     public function gamePayRequest($x7PublicKey)
     {
         $requestArr = (new GamePay)
-            ->setGameOrderId("X7GC" . mt_rand(111, 999) . "TEST")
-            ->setGameArea("S1")
-            ->setGameGuid("6656555")
-            ->setGameLevel("200")
-            ->setGamePrice("648.00")
-            ->setGameRoleId("R101")
-            ->setGameRoleName("小可爱101")
+            ->setGameOrderId("X7O19859002509301624104122")
+            ->setGameArea("1服 华南")
+            ->setGameGuid("71270977")
+            ->setGameLevel("6733")
+            ->setGamePrice("100.00")
+            ->setGameRoleId("0777")
+            ->setGameRoleName("1服1哥")
             ->setNotifyId(-1)
             ->setSubject("大宝剑")
+            ->setGameCurrency("CNY")
+            ->setGameAccessVersion('7.98')
             ->setExtendsInfoData(ParamTool::buildQueryString(["key" => "value"]))
             ->done($x7PublicKey);
         
