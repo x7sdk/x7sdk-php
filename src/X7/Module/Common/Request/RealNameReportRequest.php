@@ -32,7 +32,7 @@ class RealNameReportRequest implements RequestInterface
     /**
      * 获取请求报文体加密数据
      */
-    public function getEncryptionData()
+    public function getData()
     {
         $encryptionData = $this->data;
         return $encryptionData;

@@ -12,7 +12,7 @@ use X7\Utils\Signature;
 
 class RealNameReportResponse extends CommonResponse
 {
-    protected $data = []; //解密后的报文数据
+    protected $decryptData = []; //解密后的报文数据
     protected $apiMethod = ApiMethod::REAL_NAME_REPORT;
 
     /**
@@ -22,7 +22,7 @@ class RealNameReportResponse extends CommonResponse
     {
         try {
             //获取加密报文
-            $encryptionData = $realNameRequest->getEncryptionData(); //加密报文
+            $encryptionData = $realNameRequest->getData();
 
             //使用RSA解密数据
             $decryptData = Signature::decrypt($encryptionData, $x7PublicKey);
@@ -33,7 +33,7 @@ class RealNameReportResponse extends CommonResponse
                 throw new RuntimeException("解密后的数据不是有效的JSON格式: " . json_last_error_msg());
             }
             
-            $this->data = $decryptDataArray;
+            $this->decryptData = $decryptDataArray;
 
             return $this;
         } catch (Exception $e) {
@@ -46,7 +46,7 @@ class RealNameReportResponse extends CommonResponse
      */
     public function getDecryptData()
     {
-        $decryptDataArray = $this->data;
+        $decryptDataArray = $this->decryptData;
         return $decryptDataArray;
     }
 }
