@@ -6,6 +6,7 @@ use X7\Client;
 use X7\Constant\GameType;
 use X7\Constant\OsType;
 use X7\Demo\IpWhiteListQueryDemo;
+use X7\Demo\RealNameReportDemo;
 use X7\Demo\RoleQueryDemo;
 use X7\Demo\RoleReportDemo;
 use X7\Demo\X7DetectionDemo;
@@ -19,13 +20,12 @@ $gameType = GameType::CLIENT;
 // $osType = OsType::ANDROID;
 $osType = "";
 
-
 $client = new Client($appkey, $gameRsaPrivateKey, $x7PublicKey, $gameType, $osType);
 
 // 小7商城
-$demo = new X7mallDemo($client);
+// $demo = new X7mallDemo($client);
 // $demo->incomingRequest();
-$demo->sendMallEntryRequest();
+// $demo->sendMallEntryRequest();
 
 
 // 小7检测
@@ -45,3 +45,7 @@ $demo->sendMallEntryRequest();
 // 角色信息上报
 // $demo = new RoleReportDemo($client);
 // $demo->sendRoleReportRequest();
+
+// 实名上报数据解密
+$demo = new RealNameReportDemo($client);
+$demo->getUserRealNameInfo();

@@ -20,4 +20,9 @@ class ApiMethod extends AbstractConstant
      * 角色信息上报
      */
     const ROLE_REPORT = "common.roleReport";
+
+    /**
+     * 用户实名上报
+     */
+    const REAL_NAME_REPORT = "common.realNameReport";
 }

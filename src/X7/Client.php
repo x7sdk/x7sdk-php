@@ -91,6 +91,25 @@ class Client
         return $this;
     }
 
+    /**
+     * 获取应用私钥
+     *
+     * @return string
+     */
+    public function getGameRsaPrivateKey()
+    {
+        return $this->gameRsaPrivateKey;
+    }
+
+    /**
+     * 获取小7平台公钥
+     *
+     * @return string
+     */
+    public function getX7PublicKey()
+    {
+        return $this->x7PublicKey;
+    }
 
     /**
      * 接收请求
