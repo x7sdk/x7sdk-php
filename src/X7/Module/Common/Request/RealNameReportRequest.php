@@ -12,7 +12,7 @@ use X7\Request\RequestInterface;
 class RealNameReportRequest implements RequestInterface
 {
     //请求报文体加密数据
-    public $collections = [];
+    protected $data = "";
 
     public function getApiMethod()
     {
@@ -21,11 +21,20 @@ class RealNameReportRequest implements RequestInterface
 
     public static function make(ParamHandlerInterface $paramHandler)
     {
-        $collections = $paramHandler->getInputValue("collections");
+        $data = $paramHandler->getInputValue("data");
 
         $request = new self;
-        $request->collections = $collections;
+        $request->data = $data;
 
         return $request;
+    }
+
+    /**
+     * 获取请求报文体加密数据
+     */
+    public function getEncryptionData()
+    {
+        $encryptionData = $this->data;
+        return $encryptionData;
     }
 }

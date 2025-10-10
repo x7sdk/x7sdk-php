@@ -12,33 +12,41 @@ use X7\Utils\Signature;
 
 class RealNameReportResponse extends CommonResponse
 {
-    //请求报文体解密数据
-    public $collections = [];
+    protected $data = []; //解密后的报文数据
     protected $apiMethod = ApiMethod::REAL_NAME_REPORT;
 
     /**
      * 对加密报文进行解密
      */
-    public function getRealNameInfo(RealNameReportRequest $realNameRequest, Client $client)
+    public function decryptRealNameInfo(RealNameReportRequest $realNameRequest, string $x7PublicKey)
     {
         try {
-            $encrypted = $realNameRequest->collections; //加密报文
-            $x7PublicKey = $client->getX7PublicKey(); //小7提供的公钥
+            //获取加密报文
+            $encryptionData = $realNameRequest->getEncryptionData(); //加密报文
 
             //使用RSA解密数据
-            $decrypted = Signature::decrypt($encrypted, $x7PublicKey);
+            $decryptData = Signature::decrypt($encryptionData, $x7PublicKey);
 
             //将解密后的数据转化为数组的形式
-            $decrypted = json_decode($decrypted, true);
+            $decryptDataArray = json_decode($decryptData, true);
             if (json_last_error() !== JSON_ERROR_NONE) {
                 throw new RuntimeException("解密后的数据不是有效的JSON格式: " . json_last_error_msg());
             }
             
-            $this->collections = $decrypted;
+            $this->data = $decryptDataArray;
 
             return $this;
         } catch (Exception $e) {
             throw new RuntimeException("实名信息解密失败: " . $e->getMessage(), $e->getCode(), $e);
         }
+    }
+
+    /**
+     * 获取解密后的报文数据
+     */
+    public function getDecryptData()
+    {
+        $decryptDataArray = $this->data;
+        return $decryptDataArray;
     }
 }
