@@ -6,7 +6,6 @@ use Exception;
 use X7\Client;
 use X7\Handler\ArrayParamHandler;
 use X7\Module\Common\Request\RealNameReportRequest;
-use X7\Module\Common\Response\RealNameReportResponse;
 
 /**
  * 解密实名上报demo
@@ -45,11 +44,10 @@ class RealNameReportDemo
             $x7PublicKey = $this->client->getX7PublicKey(); 
 
             //厂商进行数据解密
-            $realNameReportResponse = new RealNameReportResponse();
-            $realNameReportResponse->decryptRealNameInfo($realNameReportRequest, $x7PublicKey);
+            $realNameReportRequest->decryptRealNameInfo($x7PublicKey);
 
-            //获取解密后的数据
-            $decryptData = $realNameReportResponse->getDecryptData();
+            //获取解密后的data报文数据
+            $decryptData = $realNameReportRequest->getDecryptData();
             
             print_r($decryptData);
         } catch (Exception $e) {
