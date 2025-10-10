@@ -7,7 +7,7 @@ use X7\Module\Common\Constant\ApiMethod;
 use X7\Request\RequestInterface;
 
 /**
- * 实名认证上报
+ * 实名认证上报请求
  */
 class RealNameReportRequest implements RequestInterface
 {

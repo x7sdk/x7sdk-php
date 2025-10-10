@@ -4,12 +4,14 @@ namespace X7\Module\Common\Response;
 
 use Exception;
 use RuntimeException;
-use X7\Client;
 use X7\Module\Common\Constant\ApiMethod;
 use X7\Module\Common\Request\RealNameReportRequest;
 use X7\Response\CommonResponse;
 use X7\Utils\Signature;
 
+/**
+ * 实名认证上报响应
+ */
 class RealNameReportResponse extends CommonResponse
 {
     protected $decryptData = []; //解密后的报文数据
