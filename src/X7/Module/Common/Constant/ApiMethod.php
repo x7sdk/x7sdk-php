@@ -25,4 +25,9 @@ class ApiMethod extends AbstractConstant
      * 用户实名上报
      */
     const REAL_NAME_REPORT = "common.realNameReport";
+
+    /**
+     * 订单查询
+     */
+    const ORDER_QUERY = "common.orderQuery";
 }
