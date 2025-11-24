@@ -9,6 +9,7 @@ use X7\Demo\IpWhiteListQueryDemo;
 use X7\Demo\RealNameReportDemo;
 use X7\Demo\RoleQueryDemo;
 use X7\Demo\RoleReportDemo;
+use X7\Demo\ServerNotifyDemo;
 use X7\Demo\X7DetectionDemo;
 use X7\Demo\X7mallDemo;
 
@@ -49,3 +50,7 @@ $client = new Client($appkey, $gameRsaPrivateKey, $x7PublicKey, $gameType, $osTy
 // 实名上报数据解密
 $demo = new RealNameReportDemo($client);
 $demo->getUserRealNameInfo();
+
+// 开服通知
+// $demo = new ServerNotifyDemo($client);
+// $demo->sendServerNotifyRequest();
