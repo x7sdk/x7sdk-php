@@ -22,9 +22,9 @@ class ServerNotifyDemo
      */
     protected $client;
 
-    protected $requestUrl = "https://api.x7sy.com/vendorApi/gateway";
+    protected $requestUrl = "https://api.x7sy.com/vendorApi/gateway"; //正式接口地址
 
-    protected $testRequestUrl = "https://api.x7sy.com/vendorApi/sample";
+    protected $testRequestUrl = "https://api.x7sy.com/vendorApi/sample"; //测试接口地址
 
 
     public function __construct(Client $client)
@@ -62,7 +62,7 @@ class ServerNotifyDemo
             //构造开服通知请求参数
             $serverNotifyRequest = ServerNotifyRequest::make(new ArrayParamHandler($bizParams));
 
-            //发起请求
+            //发起请求（注：下面样例请求的是测试接口地址，接口调试完毕，在上线之前需要切换为正式接口地址：$this->requestUrl）
             $verifiedResponse = $this->client->request($serverNotifyRequest, $this->testRequestUrl);
 
             //请求响应验证
