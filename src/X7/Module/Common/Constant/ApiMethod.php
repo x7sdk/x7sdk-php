@@ -20,4 +20,9 @@ class ApiMethod extends AbstractConstant
      * 角色信息上报
      */
     const ROLE_REPORT = "common.roleReport";
+
+    /**
+     * 开服信息查询
+     */
+    const SERVER_OPEN_QUERY = "common.serverOpenQuery";
 }

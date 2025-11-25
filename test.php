@@ -10,7 +10,7 @@ use X7\Demo\RoleQueryDemo;
 use X7\Demo\RoleReportDemo;
 use X7\Demo\X7DetectionDemo;
 use X7\Demo\X7mallDemo;
-
+use X7\Demo\ServerOpenQueryDemo;
 
 $appkey = "";
 $gameRsaPrivateKey = "";
@@ -18,7 +18,6 @@ $x7PublicKey = "";
 $gameType = GameType::CLIENT;
 // $osType = OsType::ANDROID;
 $osType = "";
-
 
 $client = new Client($appkey, $gameRsaPrivateKey, $x7PublicKey, $gameType, $osType);
 
@@ -45,3 +44,7 @@ $demo->sendMallEntryRequest();
 // 角色信息上报
 // $demo = new RoleReportDemo($client);
 // $demo->sendRoleReportRequest();
+
+//开服查询
+//$demo = new ServerOpenQueryDemo($client);
+//$demo->incomingRequest();
