@@ -37,18 +37,18 @@ class ParamTool
 
     public static function isFloatNumber($num)
     {
-        return preg_match("/^\d+\.\d+$/", $num);
+        return preg_match("/^\d+\.\d+$/", $num) === 1;
     }
 
 
     public static function isIntegerNumber($num)
     {
-        return preg_match("/^\d+$/", $num);
+        return preg_match("/^\d+$/", $num) === 1;
     }
 
     public static function isValidAppkey($appkey)
     {
-        return preg_match("/^(x7sy)?[0-9a-z]{32}$/", $appkey);
+        return preg_match("/^(x7sy)?[0-9a-z]{32}$/", $appkey) === 1;
     }
 
 
@@ -75,5 +75,4 @@ class ParamTool
         $privKey = openssl_pkey_get_private(Signature::formatRsaPrivateKey($rsaPrivateKey));
         return !empty($privKey);
     }
-
 }

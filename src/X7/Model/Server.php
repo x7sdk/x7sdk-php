@@ -8,36 +8,40 @@ namespace X7\Model;
 class Server extends Model
 {
     /**
-     * 区服ID
-     *
+     * 区服ID（区服编号）
+     * 
      * @var string
      */
     public $serverId;
 
     /**
-     * 开服时间，ISO8601格式
-     *
+     * 开服时间
+     * 
      * @var string
      */
     public $serverTime;
 
     /**
-     * 区服名称，可选
-     *
+     * 区服名称
+     * 
      * @var string
      */
-    public $serverName = '';
+    public $serverName;
 
     /**
-     * API 区服标识，可选
-     *
+     * api区服
+     * 
      * @var string
      */
-    public $apiServer = '';
+    public $apiServer;
 
+    /**
+     * 可选参数
+     *
+     * @var array
+     */
     protected static $optionalFields = [
         'serverName',
         'apiServer'
     ];
 }
-

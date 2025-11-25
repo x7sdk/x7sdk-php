@@ -30,6 +30,7 @@ use X7\Constant\GameType;
 use X7\Constant\OsType;
 use X7\Demo\RoleQueryDemo;
 use X7\Demo\RoleReportDemo;
+use X7\Demo\ServerNotifyDemo;
 use X7\Demo\X7DetectionDemo;
 use X7\Demo\X7mallDemo;
 
@@ -69,5 +70,13 @@ $basicDemo->sendCheckLoginRequest($appkey, $tokenkey);
 // 角色信息上报
 // $demo = new RoleReportDemo($client);
 // $demo->sendRoleReportRequest();
+
+// 用户实名上报信息验签解析
+$demo = new RealNameDemo($client);
+$demo->getUserRealNameInfo();
+
+// 开服通知
+// $demo = new ServerNotifyDemo($client);
+// $demo->sendServerNotifyRequest();
 ```
 

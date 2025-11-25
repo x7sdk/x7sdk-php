@@ -1,0 +1,107 @@
+name: CI
+
+on:
+  push:
+    branches: [master, develop]
+  pull_request:
+    branches: [master, develop]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php-version: ["7.3", "7.4"]
+
+    name: PHP ${{ matrix.php-version }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: openssl, curl, json, mbstring
+          coverage: xdebug
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Run tests
+        run: composer test
+
+      - name: Generate coverage report
+        run: composer test-coverage
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results-php${{ matrix.php-version }}
+          path: |
+            test-results.xml
+            coverage/
+
+  lint:
+    runs-on: ubuntu-latest
+    name: Lint
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "7.3"
+          extensions: openssl, curl, json, mbstring
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Run PHP CS Fixer
+        run: |
+          if [ -f vendor/bin/php-cs-fixer ]; then
+            vendor/bin/php-cs-fixer fix --dry-run --diff --verbose
+          else
+            echo "PHP CS Fixer not installed, skipping linting"
+          fi
+
+  security:
+    runs-on: ubuntu-latest
+    name: Security Check
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "7.3"
+          extensions: openssl, curl, json, mbstring
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Run security check
+        run: |
+          if [ -f vendor/bin/security-checker ]; then
+            vendor/bin/security-checker security:check
+          else
+            echo "Security checker not installed, skipping security check"
+          fi

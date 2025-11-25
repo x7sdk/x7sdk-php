@@ -1,2 +1,11 @@
 /vendor/
 composer.lock
+
+# Coverage reports
+/coverage/
+/coverage.xml
+/coverage.clover
+.test-results.xml
+coverage.txt
+.phpunit.result.cache
+.devcontainer/
