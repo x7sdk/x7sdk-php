@@ -1,11 +1,13 @@
 <?php
 
-namespace X7\Module\Common\Model;
+namespace X7\Model;
+
+use X7\Model\Model;
 
 /**
  * 订单查询订单信息
  */
-class OrderSearchOrder
+class OrderSearchOrder extends Model
 {
     /**
      * 小7订单ID

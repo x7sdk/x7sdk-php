@@ -7,13 +7,13 @@ use X7\Client;
 use X7\Constant\ResponseCode;
 use X7\Exception\ServerResponseException;
 use X7\Handler\ArrayParamHandler;
-use X7\Module\Common\Request\GameOrderSearchRequest;
-use X7\Module\Common\Response\GameOrderSearchResponse;
+use X7\Module\Common\Request\OrderSearchRequest;
+use X7\Module\Common\Response\OrderSearchResponse;
 
 /**
  * 订单查询 demo
  */
-class GameOrderSearchDemo
+class OrderSearchDemo
 {
    /**
      * @var Client
@@ -32,19 +32,17 @@ class GameOrderSearchDemo
 
     /**
      * 发送订单查询请求
-     * 
      */
-    public function sendGameOrderSearchRequest()
+    public function sendOrderSearchRequest()
     {
         try {
-            $gameOrderSearchRequest = GameOrderSearchRequest::make(new ArrayParamHandler([
-                "startTime" => "2024-11-23 00:00:00",
-                "endTime" => "2025-11-23 23:59:59"
+            $orderSearchRequest = OrderSearchRequest::make(new ArrayParamHandler([
+                "startTime" => "2025-11-21T00:00:00+0800",
+                "endTime" => "2025-11-21T23:59:59+0800"
             ]));
-
-            $verifiedResponse = $this->client->request($gameOrderSearchRequest, $this->testRequestUrl);
-
-            $response = (new GameOrderSearchResponse)->validate(new ArrayParamHandler($verifiedResponse->bizResp));
+         
+            $verifiedResponse = $this->client->request($orderSearchRequest, $this->testRequestUrl);
+            $response = (new OrderSearchResponse)->validate(new ArrayParamHandler($verifiedResponse->bizResp));
 
             //校验请求响应状态
             if ($response->respCode != ResponseCode::SUCCESS) {
@@ -53,7 +51,7 @@ class GameOrderSearchDemo
 
             $response->orderList;
 
-            var_dump($response);
+            var_dump($response->orderList);
         } catch (Exception $e) {
             //异常处理
             if ($e instanceof ServerResponseException) {

@@ -7,7 +7,7 @@ use X7\Handler\ParamHandlerInterface;
 use X7\Module\Common\Constant\ApiMethod;
 use X7\Request\RequestInterface;
 
-class GameOrderSearchRequest implements RequestInterface
+class OrderSearchRequest implements RequestInterface
 {
     /**
      * 开始时间 格式使用ISO8601规范，示例：2022-05-20T22:22:22+0800
@@ -26,7 +26,7 @@ class GameOrderSearchRequest implements RequestInterface
 
     public function getApiMethod()
     {
-        return ApiMethod::ROLE_QUERY;
+        return ApiMethod::ORDER_QUERY;
     }
 
     public static function make(ParamHandlerInterface $paramHandler)
