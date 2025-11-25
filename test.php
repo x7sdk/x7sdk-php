@@ -49,13 +49,13 @@ $client = new Client($appkey, $gameRsaPrivateKey, $x7PublicKey, $gameType, $osTy
 // $demo->sendRoleReportRequest();
 
 // 实名上报数据解密
-$demo = new RealNameReportDemo($client);
-$demo->getUserRealNameInfo();
+// $demo = new RealNameReportDemo($client);
+// $demo->getUserRealNameInfo();
 
 // 开服通知
 // $demo = new ServerNotifyDemo($client);
 // $demo->sendServerNotifyRequest();
 
 // 订单查询
-$demo = new OrderSearchDemo($client);
-$demo->sendOrderSearchRequest();
+// $demo = new OrderSearchDemo($client);
+// $demo->sendOrderSearchRequest();
