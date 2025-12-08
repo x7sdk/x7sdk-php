@@ -11,6 +11,9 @@ use X7\Module\Common\Constant\IpWhiteListQueryType;
 use X7\Module\Common\Request\IpWhiteListQueryRequest;
 use X7\Module\Common\Response\IpWhiteListQueryResponse;
 
+/**
+ * IP白名单查询 demo
+ */
 class IpWhiteListQueryDemo
 {
 
@@ -29,24 +32,26 @@ class IpWhiteListQueryDemo
         $this->client = $client;
     }
 
-
     public function sendIpWhiteListQueryRequest()
     {
         try {
-            $ipWhiteListQueryRequest = IpWhiteListQueryRequest::make(new ArrayParamHandler([
-                "ipType" => IpWhiteListQueryType::CLIENT
-            ]));
+            $bizParams = [
+                "ipType" => IpWhiteListQueryType::CLIENT, //查询类型，支持类型：client表示用户ip
+            ];
 
+            //IP白名单查询请求参数
+            $ipWhiteListQueryRequest = IpWhiteListQueryRequest::make(new ArrayParamHandler($bizParams));
+            
+            //发起请求
             $verifiedResponse = $this->client->request($ipWhiteListQueryRequest, $this->testRequestUrl);
-
+            
+            //请求响应验证
             $response = (new IpWhiteListQueryResponse)->validate(new ArrayParamHandler($verifiedResponse->bizResp));
-
+            
             //校验请求响应状态
             if ($response->respCode != ResponseCode::SUCCESS) {
-                //do something
+                //请求失败处理...
             }
-
-            $response->ipList;
 
             var_dump($response);
         } catch (Exception $e) {
@@ -57,5 +62,4 @@ class IpWhiteListQueryDemo
             echo $e->getMessage();
         }
     }
-
 }
